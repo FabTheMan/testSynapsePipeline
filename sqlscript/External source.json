@@ -1,0 +1,17 @@
+{
+	"name": "External source",
+	"properties": {
+		"content": {
+			"query": "/* CREATE LOGIN data_explorer WITH PASSWORD = 'P@ssw0rd'; \n\n\n\nCREATE EXTERNAL DATA SOURCE PrimarySource1\nWITH ( LOCATION = 'https://fabprimarystorage.dfs.core.windows.net') */\n\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n            BULK '/fabroot/NYC/NYCTripSmall.parquet',\n            DATA_SOURCE = 'PrimarySource1',\n            FORMAT='PARQUET'\n    ) AS [result]\n\n\n    ",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "DataExplorationDB",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

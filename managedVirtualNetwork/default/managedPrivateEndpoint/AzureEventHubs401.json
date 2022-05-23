@@ -1,0 +1,10 @@
+{
+	"name": "AzureEventHubs401",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/94ad87c5-0900-4b8c-aa84-5b024e67d806/resourceGroups/Synapse_PEP_RG/providers/Microsoft.EventHub/namespaces/fabdaxeh",
+		"groupId": "namespace",
+		"fqdns": [
+			"fabdaxeh.servicebus.windows.net"
+		]
+	}
+}

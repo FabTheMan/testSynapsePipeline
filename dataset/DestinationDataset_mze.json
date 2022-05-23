@@ -1,0 +1,19 @@
+{
+	"name": "DestinationDataset_mze",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SinkStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "test.parquet",
+				"container": "fromcopyactivity"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

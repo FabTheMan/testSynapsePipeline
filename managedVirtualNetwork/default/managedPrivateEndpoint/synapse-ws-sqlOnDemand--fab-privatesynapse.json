@@ -1,0 +1,10 @@
+{
+	"name": "synapse-ws-sqlOnDemand--fab-privatesynapse",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/94ad87c5-0900-4b8c-aa84-5b024e67d806/resourceGroups/Synapse_PEP_RG/providers/Microsoft.Synapse/workspaces/fab-privatesynapse",
+		"groupId": "sqlOnDemand",
+		"fqdns": [
+			"fab-privatesynapse-ondemand.fc885986-6554-4912-bfc3-d32363137d5f.sql.azuresynapse.net"
+		]
+	}
+}

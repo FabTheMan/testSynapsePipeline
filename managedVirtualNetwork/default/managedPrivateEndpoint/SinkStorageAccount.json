@@ -1,0 +1,10 @@
+{
+	"name": "SinkStorageAccount",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/94ad87c5-0900-4b8c-aa84-5b024e67d806/resourceGroups/Synapse_PEP_RG/providers/Microsoft.Storage/storageAccounts/fabsinkstorage",
+		"groupId": "blob",
+		"fqdns": [
+			"fabsinkstorage.blob.core.windows.net"
+		]
+	}
+}

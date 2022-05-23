@@ -1,0 +1,84 @@
+{
+	"name": "AggregationDataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "MovieSourceDS",
+						"type": "DatasetReference"
+					},
+					"name": "MoviesSourceForDataflowStream"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "TempSinkDataset",
+						"type": "DatasetReference"
+					},
+					"name": "TempDestinationSink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SelectAndRenameStream"
+				},
+				{
+					"name": "FilterYearsBefore1950Stream"
+				},
+				{
+					"name": "DerivePrimaryGenreStream"
+				},
+				{
+					"name": "RankMoviesStream"
+				},
+				{
+					"name": "AggregateRatingsStream"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          movie as integer,",
+				"          title as string,",
+				"          genres as string,",
+				"          year as short,",
+				"          Rating as short,",
+				"          RottenTomato as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> MoviesSourceForDataflowStream",
+				"MoviesSourceForDataflowStream select(mapColumn(",
+				"          movie,",
+				"          title,",
+				"          genres,",
+				"          year,",
+				"          RottenTomato",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectAndRenameStream",
+				"SelectAndRenameStream filter(year > 1950) ~> FilterYearsBefore1950Stream",
+				"FilterYearsBefore1950Stream derive(PrimaryGenre = split(genres, '|')[1]) ~> DerivePrimaryGenreStream",
+				"DerivePrimaryGenreStream window(over(PrimaryGenre,",
+				"          year),",
+				"     desc(RottenTomato, true),",
+				"     RatingRank = rank()) ~> RankMoviesStream",
+				"RankMoviesStream aggregate(groupBy(PrimaryGenre,",
+				"          year),",
+				"     AverageRating = avg(RottenTomato),",
+				"          HighestRated = first(title),",
+				"          LowestRated = last(title),",
+				"          NumberOfMovies = count()) ~> AggregateRatingsStream",
+				"AggregateRatingsStream sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> TempDestinationSink"
+			]
+		}
+	}
+}

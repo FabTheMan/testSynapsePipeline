@@ -1,0 +1,20 @@
+{
+	"name": "SourceDataset_mze",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "fab-privatesynapse-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "NYCTripSmall.parquet",
+				"folderPath": "NYC",
+				"fileSystem": "fabroot"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}
